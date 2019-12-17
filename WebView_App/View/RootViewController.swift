@@ -17,7 +17,7 @@ class RootViewController: UIViewController {
     @IBOutlet weak var webBtn: UIButton!
     
     let webVC =  WebViewController.init(nibName: nil, bundle: nil)
-
+    let tableVC = SettingsViewController.init(nibName: nil, bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpNav()
@@ -34,7 +34,14 @@ class RootViewController: UIViewController {
         self.webBtn.rx.tap
         .subscribe { [unowned self] _ in
             self.navigationController?.pushViewController(self.webVC, animated: true)//遷移する
+        }
+        .disposed(by: self.disposeBag)
+        
+        self.tableBtn.rx.tap
+        .subscribe { [unowned self] _ in
+            self.navigationController?.pushViewController(self.tableVC, animated: true)//遷移する
             print("")
         }
-        .disposed(by: self.disposeBag)    }
+        .disposed(by: self.disposeBag)
+    }
 }
